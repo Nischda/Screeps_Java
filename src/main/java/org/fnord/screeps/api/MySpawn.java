@@ -31,37 +31,24 @@ public class MySpawn {
 
 
         if (harvester.length < 6) {
-            System.out.println("Spawning harvester"); //useful?:  String newName = union(
-            spawn1.createCreep(
-                    new String[]{WORK, CARRY, MOVE},
-                    null,
-                    $map("role", "harvester", "sourceID", ((Structure)spawn1.room.find(FIND_SOURCES)[0]).id)
-            );
-
+            spawnCreep("harvester", null, new String[]{WORK, CARRY, MOVE}, 1 );
         }
         else if (upgrader.length < 2) {
-            System.out.println("Spawning upgrader");
-            spawn1.createCreep(
-                    new String[]{WORK, CARRY, MOVE},
-                    null,
-                    $map("role", "upgrader", "sourceID", ((Structure)spawn1.room.find(FIND_SOURCES)[1]).id) //sort by amount of sources and modulo
-            );
+            spawnCreep("upgrader", null, new String[]{WORK, CARRY, MOVE}, 1 );
         }
         else if (builder.length < 8) {
-            System.out.println("Spawning builder");
-            spawn1.createCreep(
-                    new String[]{WORK, CARRY, MOVE},
-                    null,
-                    $map("role", "builder", "sourceID", ((Structure)spawn1.room.find(FIND_SOURCES)[1]).id) //sort by amount of sources and modulo
-            );
+            spawnCreep("builder", null, new String[]{WORK, CARRY, MOVE}, 1 );
         }
         else if (repairer.length < 2) {
-            System.out.println("Spawning repairer");
-            spawn1.createCreep(
-                    new String[]{WORK, CARRY, MOVE},
-                    null,
-                    $map("role", "repairer", "sourceID", ((Structure)spawn1.room.find(FIND_SOURCES)[1]).id) //sort by amount of sources and modulo
-            );
+            spawnCreep("repairer", null, new String[]{WORK, CARRY, MOVE}, 1 );
         }
+    }
+    private void spawnCreep(String role, String name, String[] bodyparts, int sourceID) {
+        System.out.println("Spawning " + role);
+        spawn1.createCreep(
+                bodyparts,
+                null,
+                $map("role", role, "sourceID", ((Structure)spawn1.room.find(FIND_SOURCES)[sourceID]).id) //sort by amount of sources and modulo
+        );
     }
 }
