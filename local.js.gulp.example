@@ -1,0 +1,9 @@
+module.exports = {
+    method: 'gulp',
+    credentials: {
+        host: 'screeps.com',
+        email: '',
+        password: '',
+        branch: ''
+    },
+};
