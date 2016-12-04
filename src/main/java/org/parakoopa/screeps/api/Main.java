@@ -1,6 +1,7 @@
 package org.parakoopa.screeps.api;
 import org.fnord.screeps.api.MyMain;
 import static jsweet.util.Globals.$export;
+
 /**
  * Main entrypoint
  */
@@ -12,8 +13,8 @@ public class Main {
      * eg. new MyGreatImplementation().loop();
      */
     public void loop() {
-
         MyMain.loop();
+
     }
 
     /**

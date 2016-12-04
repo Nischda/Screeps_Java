@@ -1,6 +1,5 @@
 package org.fnord.screeps.api;
 
-import def.screeps.Game;
 import def.screeps.Spawn;
 import def.screeps.Structure;
 import def.screeps.Room;
@@ -22,6 +21,7 @@ public class MyEvents {
                 (
                         def.screeps.Structure structure) ->
                         (structure.structureType == STRUCTURE_SPAWN
+                                || structure.structureType == STRUCTURE_TOWER
                                 || structure.structureType == STRUCTURE_EXTENSION)
                                 && ((Spawn) structure).energy < ((Spawn) structure).energyCapacity //Spawn is structure which owns energy function
         ));
@@ -29,26 +29,30 @@ public class MyEvents {
         for(int i = 0; i < structures.length; i++) {
             structureIDs[i] = structures[i].id;
         }
-        room.$set("structureIDs", structureIDs);
-      //   System.out.println("After setting Memory: " + room.$get("structureIDs"));
+        room.memory.$set("structureIDs", structureIDs);
+      //   System.out.println("After setting Memory: " + room.memory.$get("structureIDs"));
     }
 
     public void isConstructing(){
         if ((Integer)room.$get("savedControllerLevel") < room.controller.level) { //Make it build and update on every difference in levels
-            room.$set("constructing", true);
-            room.$set("savedControllerLevel", room.controller.level);
+            room.memory.$set("constructing", true);
+            room.memory.$set("savedControllerLevel", room.controller.level);
 
-            System.out.println("savedControllerLevel: " + room.$get("savedControllerLevel"));
+            System.out.println("savedControllerLevel: " + room.memory.$get("savedControllerLevel"));
             System.out.println("room.controllerlevel: " + room.controller.level);
-            System.out.println( (Double)room.$get("savedControllerLevel") != room.controller.level);
+            System.out.println( (Double)room.memory.$get("savedControllerLevel") != room.controller.level);
         }
         else {
-            room.$set("constructing", false);
+            room.memory.$set("constructing", false);
         }
     }
 
     public void setCreepBodies() {
-        if (room.energyCapacityAvailable != ((Double) room.$get("energyCapacityLevel")) && room.controller.level < 5) {//recheck for right values and comparison
+
+        //System.out.println("energyCapacityAvailable: " + room.energyCapacityAvailable);
+        //System.out.println("Get energyCapacityLevel: " + room.memory.$get("energyCapacityLevel"));
+
+        if (room.energyCapacityAvailable != (Double) room.memory.$get("energyCapacityLevel")) {// ToDo: add limit,    //&& room.controller.level < 5
             System.out.println("ATTRIBUTES GET ADJUSTED");
             ArrayList<String> baseAttributes = new ArrayList<String>(); //ToDo Add multiple at once
             baseAttributes.add("move");
@@ -99,11 +103,10 @@ public class MyEvents {
             //         repairerAttributes.push('TOUGH')
             //         energyCapacityLeft -= 10
             //     }
-
-            room.$set("builderAttributes", builderAttributes);
-            room.$set("repairerAttributes", builderAttributes);
-            room.$set("harvesterAttributes", builderAttributes);
-            room.$set("haulerAttributes", builderAttributes);
+            room.memory.$set("builderAttributes", builderAttributes);
+            room.memory.$set("repairerAttributes", repairerAttributes);
+            room.memory.$set("harvesterAttributes", harvesterAttributes);
+            room.memory.$set("haulerAttributes", haulerAttributes);
 /*
             room.memory.extensions = room.find(FIND_MY_STRUCTURES, {filter: { structureType: STRUCTURE_EXTENSION }});
             room.memory.extensionsCount = room.memory.extensions.length;
@@ -115,7 +118,7 @@ public class MyEvents {
             //
             //Spawn spawn1 = (Spawn) Game.spawns.$get("Spawn1");
             //move into spawn memory
-            room.$set("energyCapacityLevel", room.energyCapacityAvailable); //.memory.extensions.length * room.memory.extensions[0].energyCapacity + 300//room.energyCapacityAvailable
+            room.memory.$set("energyCapacityLevel", room.energyCapacityAvailable); //.memory.extensions.length * room.memory.extensions[0].energyCapacity + 300//room.energyCapacityAvailable
         }
     }
 }

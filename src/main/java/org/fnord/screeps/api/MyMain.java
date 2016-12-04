@@ -11,10 +11,9 @@ public class MyMain {
 
         Array<Room> rooms = new Mapper<Room>(Game.rooms).toArray();
         for (Room room : rooms) {
-
             new MyGraveyard().buryCorpses();    //Remove Memory of dead creeps
-            new MyEventCommander(room).checkRoom();
             new MyStatus(room).statusReport();      //Print available Data
+            new MyEventCommander(room).checkRoom();
             new MySpawn(room).spawn();              //Spawn creep population
             new MyCreepCommander(room).command();   //Delivers tasks to creeps
             new MyArchitect(room).createConstructionSites();

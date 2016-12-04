@@ -17,7 +17,7 @@ public class MyArchitect {
     }
 
     public void createConstructionSites() {
-        if((Boolean)room.$get("constructing")) {
+        if((Boolean)room.memory.$get("constructing")) { // ToDo: intervall too small
             System.out.println("Architect: Planning ConstructionSites");
 
             MyBlueprints myBlueprints = new MyBlueprints(room);//add room to constructor

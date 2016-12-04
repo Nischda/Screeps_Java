@@ -35,7 +35,7 @@ public class MySpawn {
                 (Creep creep) -> creep.memory.$get("role") == "repairer"
         );
 
-        String builderAttributes = (String)room.$get("builderAttributes");
+        String builderAttributes = (String)room.memory.$get("builderAttributes");
         System.out.println("builderAttributes: " + builderAttributes);
         if (harvester.length < 6) {
             spawnCreep("harvester", null, new String[]{WORK, CARRY, MOVE}, 0 );

@@ -39,7 +39,7 @@ public class MyCreepCommander {
     }
 
     private void setEnergyStructure() {
-        String[] targetStructures = (String[]) room.$get("structureIDs");
+        String[] targetStructures = (String[]) room.memory.$get("structureIDs");
         this.energyStructure = Game.getObjectById(targetStructures[0]);
     }
 
@@ -101,7 +101,7 @@ public class MyCreepCommander {
         System.out.println("builder: " + builder);
         System.out.println("repairer: " + repairer);
 
-        StructureTower[] towers = (StructureTower[]) room.$get("tower");
+        StructureTower[] towers = (StructureTower[]) room.memory.$get("tower");
         if (towers != null)
             for (StructureTower tower : towers) { //room memory is somehow not having its own towers in memory?
                 new MyTower(tower).run();

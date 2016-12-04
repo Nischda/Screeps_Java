@@ -50,7 +50,6 @@ public class Mapper<T> {
         this.object = object;
     }
 
-
     /**
      * Converts the Javascript Object into a HashMap.
      * Example:

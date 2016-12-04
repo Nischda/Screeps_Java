@@ -7,6 +7,7 @@ public class MyEventCommander {
     public MyEventCommander(Room room) {
         this.room = room;
     }
+
     public void checkRoom() {
 
         MyEvents myEvents = new MyEvents(room);
