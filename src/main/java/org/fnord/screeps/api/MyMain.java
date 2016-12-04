@@ -15,7 +15,7 @@ public class MyMain {
             new MyGraveyard().buryCorpses();    //Remove Memory of dead creeps
             new MyEventCommander(room).checkRoom();
             new MyStatus(room).statusReport();      //Print available Data
-            new MySpawn().spawn();              //Spawn creep population
+            new MySpawn(room).spawn();              //Spawn creep population
             new MyCreepCommander(room).command();   //Delivers tasks to creeps
             new MyArchitect(room).createConstructionSites();
             //new MyArchitect(room).removeConstructionSites();

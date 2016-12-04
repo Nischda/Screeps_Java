@@ -31,6 +31,7 @@ public class MyArchitect {
                 myBlueprints.planStructuresBetween(spawn1, source, false, "road");
 
             }
+            //ToDo add tower constructions ad make it add itself to memory
         }
     }
     public void removeConstructionSites(Room room) {

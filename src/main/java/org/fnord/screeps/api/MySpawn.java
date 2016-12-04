@@ -5,14 +5,20 @@ import def.screeps.Game;
 import def.screeps.Spawn;
 import def.screeps.Structure;
 import org.parakoopa.screeps.api.Mapper;
-
+import def.screeps.Room;
 import static def.screeps.Globals.*;
 import static jsweet.util.Globals.$map;
-import static jsweet.util.Globals.union;
+import static jsweet.util.Globals.union; //used to dffierentiate double and int?
 
 public class MySpawn {
 
-    Spawn spawn1 = (Spawn)Game.spawns.$get("Spawn1");
+    private Room room;
+    private Spawn spawn1;
+
+    public MySpawn(Room room) {
+        this.room = room;
+        this.spawn1 = Game.spawns.$get("Spawn1");
+    }
 
     public void spawn() {
 
@@ -29,9 +35,10 @@ public class MySpawn {
                 (Creep creep) -> creep.memory.$get("role") == "repairer"
         );
 
-
+        String builderAttributes = (String)room.$get("builderAttributes");
+        System.out.println("builderAttributes: " + builderAttributes);
         if (harvester.length < 6) {
-            spawnCreep("harvester", null, new String[]{WORK, CARRY, MOVE}, 1 );
+            spawnCreep("harvester", null, new String[]{WORK, CARRY, MOVE}, 0 );
         }
         else if (upgrader.length < 2) {
             spawnCreep("upgrader", null, new String[]{WORK, CARRY, MOVE}, 1 );

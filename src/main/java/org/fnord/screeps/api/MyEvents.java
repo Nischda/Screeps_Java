@@ -1,5 +1,6 @@
 package org.fnord.screeps.api;
 
+import def.screeps.Game;
 import def.screeps.Spawn;
 import def.screeps.Structure;
 import def.screeps.Room;
@@ -29,7 +30,7 @@ public class MyEvents {
             structureIDs[i] = structures[i].id;
         }
         room.$set("structureIDs", structureIDs);
-        // System.out.println("After setting Memory: " + room.$get("structureIDs"));
+      //   System.out.println("After setting Memory: " + room.$get("structureIDs"));
     }
 
     public void isConstructing(){
@@ -45,15 +46,32 @@ public class MyEvents {
             room.$set("constructing", false);
         }
     }
+
     public void setCreepBodies() {
-        if (room.energyCapacityAvailable != ((Double)room.$get("energyCapacityLevel")) && room.controller.level < 5) {//recheck for right values and comparison
+        if (room.energyCapacityAvailable != ((Double) room.$get("energyCapacityLevel")) && room.controller.level < 5) {//recheck for right values and comparison
             System.out.println("ATTRIBUTES GET ADJUSTED");
-            ArrayList<String> baseAttributes = new ArrayList<String>() {{add("move");add("work");add("carry");}};
-            ArrayList<String> builderAttributes = new ArrayList<String>() {{add("move");add("work");add("carry");}};
-            ArrayList<String> repairerAttributes = new ArrayList<String>() {{add("move");add("work");add("carry");}};
-            ArrayList<String> harvesterAttributes = new ArrayList<String>() {{add("move");add("work");add("carry");}};
-            ArrayList<String> haulerAttributes = new ArrayList<String>() {{add("move");add("work");add("carry");}};
+            ArrayList<String> baseAttributes = new ArrayList<String>(); //ToDo Add multiple at once
+            baseAttributes.add("move");
+            baseAttributes.add("work");
+            baseAttributes.add("carry");
+            ArrayList<String> builderAttributes = new ArrayList<String>();
+            builderAttributes.add("move");
+            builderAttributes.add("work");
+            builderAttributes.add("carry");
+            ArrayList<String> repairerAttributes = new ArrayList<String>();
+            repairerAttributes.add("move");
+            repairerAttributes.add("work");
+            repairerAttributes.add("carry");
+            ArrayList<String> harvesterAttributes = new ArrayList<String>();
+            harvesterAttributes.add("move");
+            harvesterAttributes.add("work");
+            harvesterAttributes.add("carry");
+            ArrayList<String> haulerAttributes = new ArrayList<String>();
+            haulerAttributes.add("move");
+            haulerAttributes.add("work");
+            haulerAttributes.add("carry");
             double energyCapacityLeft = room.energyCapacityAvailable - 200;
+
 
             while(energyCapacityLeft >= 200) {
                 builderAttributes.addAll(baseAttributes);
@@ -81,18 +99,22 @@ public class MyEvents {
             //         repairerAttributes.push('TOUGH')
             //         energyCapacityLeft -= 10
             //     }
+
             room.$set("builderAttributes", builderAttributes);
             room.$set("repairerAttributes", builderAttributes);
             room.$set("harvesterAttributes", builderAttributes);
             room.$set("haulerAttributes", builderAttributes);
 /*
             room.memory.extensions = room.find(FIND_MY_STRUCTURES, {filter: { structureType: STRUCTURE_EXTENSION }});
-            room.memory.extensionsCount = room.memory.extensions.length
-            if (room.memory.extensionsCount = 'undefined') {
+            room.memory.extensionsCount = room.memory.extensions.length;
+            if (room.memory.extensionsCount == 'undefined') {
                 room.memory.extensionsCount = 0
 
             };
-            */
+*/
+            //
+            //Spawn spawn1 = (Spawn) Game.spawns.$get("Spawn1");
+            //move into spawn memory
             room.$set("energyCapacityLevel", room.energyCapacityAvailable); //.memory.extensions.length * room.memory.extensions[0].energyCapacity + 300//room.energyCapacityAvailable
         }
     }
